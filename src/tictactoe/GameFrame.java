@@ -72,25 +72,26 @@ public class GameFrame extends JFrame {
             setBorder (new LineBorder(Color.black, 1));
             addMouseListener(new MyMouseListener());
         }
+        //returns token back
         public char getToken(){
             return token;
         }
-    
+        //sets token as c
         public void setToken(char c){
             token = c;
             repaint();
         }
     
         @Override
-        protected void paintComponent(Graphics g){
-            super.paintComponent(g);
+        protected void paintComponent(Graphics tokens){
+            super.paintComponent(tokens);
         
-            if(token == 'X'){
-                g.drawLine(10, 10, getWidth() - 10, getHeight() - 10);
-                g.drawLine(getWidth() - 10, 10, 10, getHeight() - 10);
+            if(token == 'O'){
+                tokens.drawOval(0,0, getWidth(), getHeight());
             }
-            else if (token == 'O'){
-                g.drawOval(10, 10, getWidth() - 20, getHeight() - 20);
+            else if (token == 'X'){
+                tokens.drawLine(0, 0, getWidth(), getHeight());
+                tokens.drawLine(getWidth(), 0, 0, getHeight());
             }
         }
         
@@ -99,7 +100,6 @@ public class GameFrame extends JFrame {
             public void mouseClicked(MouseEvent e){
                 if(isGameOver)
                     return;
-                
                 if(token == ' ' && turn != ' ')
                     setToken(turn);
                 if(gameWon(turn)){
